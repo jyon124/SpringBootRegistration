@@ -34,14 +34,15 @@ public class UserController {
 		return new ResponseEntity<>("Created new User",HttpStatus.CREATED);
 	}
 	
-	@PutMapping(path="/jpa/updatePw/{id}")
-	public ResponseEntity<String> changePassword(@RequestBody String newPassword, @PathVariable Long id) {
-		java.util.Optional<User> user = userRepo.findById(id);
-		user.get().setPassword(newPassword);
-		System.out.println(user.get().getPassword());
-		return new ResponseEntity<>("Password updated",HttpStatus.CREATED);
+	@PutMapping(path="/jpa/updateUserPw/{id}")
+	public java.util.Optional<Object> changePassword(@RequestBody User newUser, @PathVariable Long id) {
+    return userRepo.findById(id)
+    	      .map(user -> {
+    	        user.setPassword(newUser.getPassword());
+    	        return userRepo.save(user);
+    	      });
 	}
-	
+    
 	@DeleteMapping(path="/jpa/deleteUser/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 		userRepo.deleteById(id);
