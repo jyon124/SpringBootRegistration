@@ -17,11 +17,12 @@
         }
 
 # Update Password from existing user
-    http://52.53.220.209:8080/jpa/updatePw/{id}
+    http://52.53.220.209:8080/jpa/updateUserPw/{id}
     Request-Type: PUT
     Body-Format:
-    "newPassword12345@"
-    
+        {
+            "password": "EnterNewPassword123@#"
+        }    
 # Delete a User
     http://52.53.220.209:8080/jpa/deleteUser/{id}
     Request-Type: DELETE
