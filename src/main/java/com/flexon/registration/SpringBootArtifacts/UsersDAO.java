@@ -93,21 +93,21 @@ public class UsersDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from users");
 			while(rs.next()) {
-				User temp = new User();
+//				User temp = new User();
 				int userId = rs.getInt("user_id");
 				String fn = rs.getString("firstName");
 				String ln = rs.getString("lastName");
 				String email = rs.getString("email");
 				String dob = rs.getString("dateOfBirth");
 				String gender = rs.getString("gender");
-				temp.setUser_id(userId);
-				temp.setFirstName(fn);
-				temp.setLastName(ln);
-				temp.setEmail(email);
-				temp.setDateOfBirth(dob);
-				temp.setGender(gender);
+//				temp.setUser_id(userId);
+//				temp.setFirstName(fn);
+//				temp.setLastName(ln);
+//				temp.setEmail(email);
+//				temp.setDateOfBirth(dob);
+//				temp.setGender(gender);
 				if(findUser(userId) == null) {
-					userArr.add(temp);
+//					userArr.add(temp);
 				}
 			}
 			stmt.close();

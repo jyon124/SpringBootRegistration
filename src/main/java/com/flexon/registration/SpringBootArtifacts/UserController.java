@@ -1,10 +1,17 @@
 package com.flexon.registration.SpringBootArtifacts;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,31 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-	@Autowired
-	private UsersDAO userService;
 	
-	@GetMapping(path="/users")
-	public ArrayList<User> printAllStudents(){
-		return userService.printUsers();
+	@Autowired
+	private UserRepository userRepo;
+	
+	@GetMapping(path="/jpa/users")
+	public @ResponseBody Iterable<User> getAllUsers(){
+		return userRepo.findAll();
 	}
 	
-//	@PostMapping(path="/addStudent")
-//	@ResponseStatus(HttpStatus.OK)
-//	public String addStudent(@RequestBody Students newStudent) {
-//		studentService.addNewStudent(newStudent);
-//		return "Sucessfully Added Student";
-//	}
+	@PostMapping(path="/jpa/addNewUser")
+	public ResponseEntity<String> addNewStudent(@RequestBody User newUser){
+		userRepo.save(newUser);
+		return new ResponseEntity<>("Created new User",HttpStatus.CREATED);
+	}
 	
-	
-//	@RequestMapping(method=RequestMethod.GET, path ="/my-service")
-//	public String myGetMethod() {
-//		return "This is my first service using a URI!!";		
-//	}
-	
-	//Simplify using Get Mapping
-	
-//	@GetMapping(path ="/get-my-service")
-//	public String myServiceImproved() {
-//		return "This is my first simplified get service call!!";		
-
 }
